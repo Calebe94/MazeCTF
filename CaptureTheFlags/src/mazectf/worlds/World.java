@@ -4,7 +4,8 @@ import java.awt.Graphics;
 
 import mazectf.Handler;
 import mazectf.entities.EntityManager;
-import mazectf.entities.creatures.Player;
+import mazectf.entities.creatures.PlayerOne;
+import mazectf.entities.creatures.PlayerTwo;
 import mazectf.entities.statics.Flags;
 //import mazectf.entities.statics.Tree;
 import mazectf.tiles.Tile;
@@ -12,23 +13,28 @@ import mazectf.utils.Utils;
 
 public class World {
 
-	private Handler handler;
+	//private Handler handler;
 	private int width, height;
-	private int spawnX, spawnY;
+	//private int spawnX, spawnY;
 	private int[][] tiles;
 	//Entities
 	private EntityManager entityManager;
 	
 	public World(Handler handler, String path){
-		this.handler = handler;
-		entityManager = new EntityManager(handler, new Player(handler, 100, 100));
-		entityManager.addEntity(new Flags(handler,"blue", 60, 600));
-		entityManager.addEntity(new Flags(handler,"red", 600, 60));
-		
+		//this.handler = handler;
+		entityManager = new EntityManager(handler);
+		entityManager.addPlayerOne(new PlayerOne(handler, 100, 100));
+		entityManager.addPlayerTwo(new PlayerTwo(handler, 500, 500));
+		entityManager.addEntity(new Flags(handler,"blue",60, 60));
+		entityManager.addEntity(new Flags(handler,"red", 60, 120));
+
+		//entityManager.getPlayerOne().setX(60);
+		//entityManager.getPlayerOne().setY(310);
+		//entityManager.getPlayerTwo().setY(310);
+		//entityManager.getPlayerTwo().setY(310);
+	
 		loadWorld(path);
 		
-		entityManager.getPlayer().setX(spawnX);
-		entityManager.getPlayer().setY(spawnY);
 	}
 	
 	public void tick(){
@@ -36,6 +42,13 @@ public class World {
 	}
 	
 	public void render(Graphics g){
+		// Sem Camera
+		for(int y = 0;y < height;y++){
+			for(int x = 0;x < width;x++){
+				getTile(x, y).render(g, (int) (x * Tile.TILEWIDTH - 0), (int) (y * Tile.TILEHEIGHT - 0));
+			}
+		}
+		/* Com Camera
 		int xStart = (int) Math.max(0, handler.getGameCamera().getxOffset() / Tile.TILEWIDTH);
 		int xEnd = (int) Math.min(width, (handler.getGameCamera().getxOffset() + handler.getWidth()) / Tile.TILEWIDTH + 1);
 		int yStart = (int) Math.max(0, handler.getGameCamera().getyOffset() / Tile.TILEHEIGHT);
@@ -46,7 +59,7 @@ public class World {
 				getTile(x, y).render(g, (int) (x * Tile.TILEWIDTH - handler.getGameCamera().getxOffset()),
 						(int) (y * Tile.TILEHEIGHT - handler.getGameCamera().getyOffset()));
 			}
-		}
+		}*/
 		//Entities
 		entityManager.render(g);
 	}
@@ -66,8 +79,8 @@ public class World {
 		String[] tokens = file.split("\\s+");
 		width = Utils.parseInt(tokens[0]);
 		height = Utils.parseInt(tokens[1]);
-		spawnX = Utils.parseInt(tokens[2]);
-		spawnY = Utils.parseInt(tokens[3]);
+		//spawnX = Utils.parseInt(tokens[2]);
+		//spawnY = Utils.parseInt(tokens[3]);
 		
 		tiles = new int[width][height];
 		for(int y = 0;y < height;y++){

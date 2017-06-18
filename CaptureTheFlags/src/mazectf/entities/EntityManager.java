@@ -5,13 +5,16 @@ import java.util.ArrayList;
 import java.util.Comparator;
 
 import mazectf.Handler;
-import mazectf.entities.creatures.Player;
+import mazectf.entities.creatures.PlayerOne;
+import mazectf.entities.creatures.PlayerTwo;
 
 public class EntityManager {
 	
 	private Handler handler;
-	private Player player;
+	private PlayerOne playerOne;
+	private PlayerTwo playerTwo;
 	private ArrayList<Entity> entities;
+	
 	private Comparator<Entity> renderSorter = new Comparator<Entity>(){
 		@Override
 		public int compare(Entity a, Entity b) {
@@ -21,11 +24,11 @@ public class EntityManager {
 		}
 	};
 	
-	public EntityManager(Handler handler, Player player){
+	public EntityManager(Handler handler){
 		this.handler = handler;
-		this.player = player;
+		//this.playerOne = player;
 		entities = new ArrayList<Entity>();
-		addEntity(player);
+		//addEntity(player);
 	}
 	
 	public void tick(){
@@ -42,6 +45,16 @@ public class EntityManager {
 		}
 	}
 	
+	public void addPlayerOne(PlayerOne player){
+		this.playerOne = player;
+		this.entities.add(player);
+	}
+
+	public void addPlayerTwo(PlayerTwo player){
+		this.playerTwo = player;
+		this.entities.add(player);
+	}
+	
 	public void addEntity(Entity e){
 		entities.add(e);
 	}
@@ -56,14 +69,21 @@ public class EntityManager {
 		this.handler = handler;
 	}
 
-	public Player getPlayer() {
-		return player;
+	public PlayerOne getPlayerOne() {
+		return playerOne;
 	}
 
-	public void setPlayer(Player player) {
-		this.player = player;
+	public void setPlayerOne(PlayerOne playerOne) {
+		this.playerOne = playerOne;
+	}
+	
+	public PlayerTwo getPlayerTwo() {
+		return playerTwo;
 	}
 
+	public void setPlayerTwo(PlayerTwo player) {
+		this.playerTwo = player;
+	}
 	public ArrayList<Entity> getEntities() {
 		return entities;
 	}

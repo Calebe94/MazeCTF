@@ -1,6 +1,6 @@
 package mazectf;
 
-import mazectf.gfx.GameCamera;
+//import mazectf.gfx.GameCamera; //Camera
 import mazectf.input.KeyManager;
 import mazectf.input.MouseManager;
 import mazectf.worlds.World;
@@ -13,10 +13,10 @@ public class Handler {
 	public Handler(Game game){
 		this.game = game;
 	}
-	
-	public GameCamera getGameCamera(){
+	//Camera
+	/*public GameCamera getGameCamera(){
 		return game.getGameCamera();
-	}
+	}*/
 	
 	public KeyManager getKeyManager(){
 		return game.getKeyManager();

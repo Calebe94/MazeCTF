@@ -5,7 +5,7 @@ import java.awt.image.BufferStrategy;
 
 import mazectf.display.Display;
 import mazectf.gfx.Assets;
-import mazectf.gfx.GameCamera;
+//import mazectf.gfx.GameCamera; //Camera
 import mazectf.input.KeyManager;
 import mazectf.input.MouseManager;
 import mazectf.states.GameState;
@@ -33,7 +33,7 @@ public class Game implements Runnable {
 	private MouseManager mouseManager;
 	
 	//Camera
-	private GameCamera gameCamera;
+	//private GameCamera gameCamera;
 	
 	//Handler
 	private Handler handler;
@@ -56,7 +56,7 @@ public class Game implements Runnable {
 		Assets.init();
 		
 		handler = new Handler(this);
-		gameCamera = new GameCamera(handler, 0, 0);
+		//gameCamera = new GameCamera(handler, 0, 0); //Camera
 		
 		gameState = new GameState(handler);
 		menuState = new MenuState(handler);
@@ -133,10 +133,10 @@ public class Game implements Runnable {
 	public MouseManager getMouseManager(){
 		return mouseManager;
 	}
-	
-	public GameCamera getGameCamera(){
-		return gameCamera;
-	}
+	//Camera
+	//public GameCamera getGameCamera(){
+	//	return gameCamera;
+	//}
 	
 	public int getWidth(){
 		return width;

@@ -10,6 +10,7 @@ public class Assets {
 	
 	public static BufferedImage dirt, grass, stone, tree, rock;
 	public static BufferedImage[] player_down, player_up, player_left, player_right;
+	public static BufferedImage[] playerTwo_down, playerTwo_up, playerTwo_left,playerTwo_right;
 	public static BufferedImage[] zombie_down, zombie_up, zombie_left, zombie_right;
 	public static BufferedImage[] blueFlag;
 	public static BufferedImage[] redFlag; 
@@ -18,44 +19,53 @@ public class Assets {
 	public static void init(){
 		SpriteSheet sheet = new SpriteSheet(ImageLoader.loadImage("/textures/sheet.png"));
 		
-		btn_start = new BufferedImage[2];
-		btn_start[0] = sheet.crop(width * 6, height * 4, width * 2, height);
-		btn_start[1] = sheet.crop(width * 6, height * 5, width * 2, height);
+		//btn_start = new BufferedImage[2];
+		//btn_start[0] = sheet.crop(width * 6, height * 4, width * 2, height);
+		//btn_start[1] = sheet.crop(width * 6, height * 5, width * 2, height);
 		
 		player_down = new BufferedImage[3];
 		player_up = new BufferedImage[3];
 		player_left = new BufferedImage[3];
 		player_right = new BufferedImage[3];
 		
-		player_down[0] = sheet.crop(0, ((width*2)+10), charWidth, charHeight-10);
-		player_down[1] = sheet.crop(charWidth+5, ((width*2)+10), charWidth, charHeight-10);
-		player_down[2] = sheet.crop((charWidth+5)*2, ((width*2)+10), charWidth, charHeight-10);
+		player_down[0] = sheet.crop(0,			 	((width*2)+10), charWidth, charHeight-10);
+		player_down[1] = sheet.crop(charWidth+5, 	((width*2)+10), charWidth, charHeight-10);
+		player_down[2] = sheet.crop((charWidth+5)*2,((width*2)+10), charWidth, charHeight-10);
 
-		player_left[0] = sheet.crop(0	, ((width*2)+10+charWidth), charWidth, charHeight-10);
-		player_left[1] = sheet.crop(charWidth+5, ((width*2)+10+charWidth), charWidth, charHeight-10);
-		player_left[2] = sheet.crop((charWidth+5)*2, ((width*2)+10+charWidth), charWidth, charHeight-10);
+		player_left[0] = sheet.crop(0, 				((width*2)+10+charWidth), charWidth, charHeight-10);
+		player_left[1] = sheet.crop(charWidth+5, 	((width*2)+10+charWidth), charWidth, charHeight-10);
+		player_left[2] = sheet.crop((charWidth+5)*2,((width*2)+10+charWidth), charWidth, charHeight-10);
 		
-		player_right[0] = sheet.crop(0	, ((width*2)+10+(2*charWidth)), charWidth, charHeight-10);
-		player_right[1] = sheet.crop(charWidth+5, ((width*2)+10+(2*charWidth)), charWidth, charHeight-10);
-		player_right[2] = sheet.crop((charWidth+5)*2, ((width*2)+10+(2*charWidth)), charWidth, charHeight-10);
+		player_right[0] = sheet.crop(0, 				((width*2)+10+(2*charWidth)), charWidth, charHeight-10);
+		player_right[1] = sheet.crop(charWidth+5, 		((width*2)+10+(2*charWidth)), charWidth, charHeight-10);
+		player_right[2] = sheet.crop((charWidth+5)*2,	((width*2)+10+(2*charWidth)), charWidth, charHeight-10);
 
-		player_up[0] = sheet.crop(0	, ((width*2)+10+(3*charWidth)), charWidth, charHeight-10);
-		player_up[1] = sheet.crop(charWidth+5, ((width*2)+10+(3*charWidth)), charWidth, charHeight-10);
-		player_up[2] = sheet.crop((charWidth+5)*2, ((width*2)+10+(3*charWidth)), charWidth, charHeight-10);
+		player_up[0] = sheet.crop(0, 				((width*2)+10+(3*charWidth)), charWidth, charHeight-10);
+		player_up[1] = sheet.crop(charWidth+5, 		((width*2)+10+(3*charWidth)), charWidth, charHeight-10);
+		player_up[2] = sheet.crop((charWidth+5)*2,  ((width*2)+10+(3*charWidth)), charWidth, charHeight-10);
 		
-		zombie_down = new BufferedImage[2];
-		zombie_up = new BufferedImage[2];
-		zombie_left = new BufferedImage[2];
-		zombie_right = new BufferedImage[2];
+
+		playerTwo_down = new BufferedImage[3];
+		playerTwo_up = new BufferedImage[3];
+		playerTwo_left = new BufferedImage[3];
+		playerTwo_right = new BufferedImage[3];
 		
-		zombie_down[0] = sheet.crop(width * 4, height * 2, width, height);
-		zombie_down[1] = sheet.crop(width * 5, height * 2, width, height);
-		zombie_up[0] = sheet.crop(width * 6, height * 2, width, height);
-		zombie_up[1] = sheet.crop(width * 7, height * 2, width, height);
-		zombie_right[0] = sheet.crop(width * 4, height * 3, width, height);
-		zombie_right[1] = sheet.crop(width * 5, height * 3, width, height);
-		zombie_left[0] = sheet.crop(width * 6, height * 3, width, height);
-		zombie_left[1] = sheet.crop(width * 7, height * 3, width, height);
+		playerTwo_down[0] = sheet.crop((charWidth+5)*3,((width*2)+10), charWidth, charHeight-10);
+		playerTwo_down[1] = sheet.crop((charWidth+5)*4,((width*2)+10), charWidth, charHeight-10);
+		playerTwo_down[2] = sheet.crop((charWidth+5)*5,((width*2)+10), charWidth, charHeight-10);
+		
+
+		playerTwo_left[0] = sheet.crop((charWidth+5)*3,((width*2)+10+charWidth), charWidth, charHeight-10);
+		playerTwo_left[1] = sheet.crop((charWidth+5)*4,((width*2)+10+charWidth), charWidth, charHeight-10);
+		playerTwo_left[2] = sheet.crop((charWidth+5)*5,((width*2)+10+charWidth), charWidth, charHeight-10);
+		
+		playerTwo_right[0] = sheet.crop((charWidth+5)*3,((width*2)+10+(2*charWidth)), charWidth, charHeight-10);
+		playerTwo_right[1] = sheet.crop((charWidth+5)*4,((width*2)+10+(2*charWidth)), charWidth, charHeight-10);
+		playerTwo_right[2] = sheet.crop((charWidth+5)*5,((width*2)+10+(2*charWidth)), charWidth, charHeight-10);
+
+		playerTwo_up[0] = sheet.crop((charWidth+5)*3,((width*2)+10+(3*charWidth)), charWidth, charHeight-10);
+		playerTwo_up[1] = sheet.crop((charWidth+5)*4,((width*2)+10+(3*charWidth)), charWidth, charHeight-10);
+		playerTwo_up[2] = sheet.crop((charWidth+5)*5,((width*2)+10+(3*charWidth)), charWidth, charHeight-10);
 		
 		blueFlag = new BufferedImage[8];
 		

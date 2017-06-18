@@ -57,7 +57,7 @@ public abstract class Entity {
 	}
 
 	public int getWidth() {
-		return width;
+		return width/2;
 	}
 
 	public void setWidth(int width) {
@@ -65,7 +65,7 @@ public abstract class Entity {
 	}
 
 	public int getHeight() {
-		return height;
+		return height/2;
 	}
 
 	public void setHeight(int height) {
