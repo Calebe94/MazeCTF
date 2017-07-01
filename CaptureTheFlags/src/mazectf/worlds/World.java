@@ -1,13 +1,17 @@
 package mazectf.worlds;
 
 import java.awt.Graphics;
+import java.util.Random;
 
 import mazectf.Handler;
 import mazectf.entities.EntityManager;
-import mazectf.entities.creatures.PlayerOne;
-import mazectf.entities.creatures.PlayerTwo;
+import mazectf.entities.creatures.*;
+//import mazectf.entities.creatures.PlayerRed;
 import mazectf.entities.statics.Flags;
-//import mazectf.entities.statics.Tree;
+import mazectf.entities.statics.Icon_BlueFlag;
+import mazectf.entities.statics.Icon_RedFlag;
+import mazectf.gfx.Assets;
+//import mazectf.entities.statics.Icon_RedFlag;
 import mazectf.tiles.Tile;
 import mazectf.utils.Utils;
 
@@ -15,62 +19,95 @@ public class World {
 
 	//private Handler handler;
 	private int width, height;
-	//private int spawnX, spawnY;
 	private int[][] tiles;
+	private int[][] aux_tiles;
 	//Entities
 	private EntityManager entityManager;
-	
+	private Flags blue;
+	private Flags red;
+	private PlayerBlue playerBlue;
+	private PlayerRed  playerRed;
+	private Icon_RedFlag iconRed;
+	private Icon_BlueFlag iconBlue;
+	private int winner = 0;
+	protected long startTimer = 0;
+	//Random
+	protected Random random;
+
 	public World(Handler handler, String path){
 		//this.handler = handler;
 		entityManager = new EntityManager(handler);
-		entityManager.addPlayerOne(new PlayerOne(handler, 100, 100));
-		entityManager.addPlayerTwo(new PlayerTwo(handler, 500, 500));
-		entityManager.addEntity(new Flags(handler,"blue",60, 60));
-		entityManager.addEntity(new Flags(handler,"red", 60, 120));
+		blue = new Flags(handler,"blue",2*32, 2*32);
+		red = new Flags(handler,"red", 40*32, 19*32);
 
-		//entityManager.getPlayerOne().setX(60);
-		//entityManager.getPlayerOne().setY(310);
-		//entityManager.getPlayerTwo().setY(310);
-		//entityManager.getPlayerTwo().setY(310);
-	
+		playerBlue = new PlayerBlue(handler, 1*32, 1*32,red,iconRed);
+		playerRed  = new PlayerRed(handler, 41*32, 18*32,blue,iconBlue);
+		
+		entityManager.addPlayerBlue(playerBlue);
+		entityManager.addPlayerRed(playerRed);
+		entityManager.addEntity(blue);
+		entityManager.addEntity(red);
+
 		loadWorld(path);
 		
+		startTimer = System.currentTimeMillis();
+		random = new Random();
 	}
 	
 	public void tick(){
 		entityManager.tick();
+		
+		if(playerBlue.getStatus()){
+			//System.out.println(" Player Blue Win!");
+			if(this.winner == 0)
+				this.winner = 1;
+		}
+		if(playerRed.getStatus()){
+			//System.out.println(" Player Red Win!");
+			if(this.winner == 0)
+				this.winner = 2;
+		}
+		
 	}
-	
+	public void trapGenerator(){
+		int aux_x = 0,aux_y=0;
+		if((System.currentTimeMillis() - startTimer)>=10000){
+			startTimer = System.currentTimeMillis();
+			System.out.println("ARMADRILA!");
+			tilesClone();
+			do{
+				aux_x = (random.nextInt(width));
+				aux_y = (random.nextInt(height));
+			}while(tiles[aux_x][aux_y]!=0);
+			aux_tiles[aux_x][aux_y] = 3;
+		}
+	}
 	public void render(Graphics g){
-		// Sem Camera
+		
+		trapGenerator();
+		
 		for(int y = 0;y < height;y++){
 			for(int x = 0;x < width;x++){
-				getTile(x, y).render(g, (int) (x * Tile.TILEWIDTH - 0), (int) (y * Tile.TILEHEIGHT - 0));
+				getTile(x, y).render(g, (int) (x * Tile.TILEWIDTH), (int) (y * Tile.TILEHEIGHT));
 			}
 		}
-		/* Com Camera
-		int xStart = (int) Math.max(0, handler.getGameCamera().getxOffset() / Tile.TILEWIDTH);
-		int xEnd = (int) Math.min(width, (handler.getGameCamera().getxOffset() + handler.getWidth()) / Tile.TILEWIDTH + 1);
-		int yStart = (int) Math.max(0, handler.getGameCamera().getyOffset() / Tile.TILEHEIGHT);
-		int yEnd = (int) Math.min(height, (handler.getGameCamera().getyOffset() + handler.getHeight()) / Tile.TILEHEIGHT + 1);
-		
-		for(int y = yStart;y < yEnd;y++){
-			for(int x = xStart;x < xEnd;x++){
-				getTile(x, y).render(g, (int) (x * Tile.TILEWIDTH - handler.getGameCamera().getxOffset()),
-						(int) (y * Tile.TILEHEIGHT - handler.getGameCamera().getyOffset()));
-			}
-		}*/
-		//Entities
 		entityManager.render(g);
+		
+		if(this.winner == 1){
+			g.drawImage(Assets.playerBlue_Winner, 200, 100, 1024, 600, null);
+		}else if(this.winner == 2){
+			g.drawImage(Assets.playerRed_Winner, 200, 100, 1024, 600, null);
+		}
 	}
 	
 	public Tile getTile(int x, int y){
 		if(x < 0 || y < 0 || x >= width || y >= height)
-			return Tile.grassTile;
+			return Tile.marbleTile;
 		
-		Tile t = Tile.tiles[tiles[x][y]];
+		//Tile t = Tile.tiles[tiles[x][y]];
+		Tile t = Tile.tiles[aux_tiles[x][y]];
 		if(t == null)
-			return Tile.dirtTile;
+			return Tile.floorTile;
 		return t;
 	}
 	
@@ -79,13 +116,22 @@ public class World {
 		String[] tokens = file.split("\\s+");
 		width = Utils.parseInt(tokens[0]);
 		height = Utils.parseInt(tokens[1]);
-		//spawnX = Utils.parseInt(tokens[2]);
-		//spawnY = Utils.parseInt(tokens[3]);
 		
 		tiles = new int[width][height];
+		aux_tiles = new int[width][height];
 		for(int y = 0;y < height;y++){
 			for(int x = 0;x < width;x++){
-				tiles[x][y] = Utils.parseInt(tokens[(x + y * width) + 4]);
+				tiles[x][y] = Utils.parseInt(tokens[(x + y * width) + 2]);
+			}
+		}
+		tilesClone();
+		//aux_tiles = tiles;
+	}
+	
+	public void tilesClone(){
+		for(int y = 0; y < height ; y++){
+			for(int x = 0; x < width ; x++){
+				aux_tiles[x][y] = tiles[x][y];
 			}
 		}
 	}
@@ -103,11 +149,3 @@ public class World {
 	}
 	
 }
-
-
-
-
-
-
-
-

@@ -26,13 +26,13 @@ public class Display {
 		frame.setSize(width, height);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		frame.setExtendedState(JFrame.MAXIMIZED_BOTH); 
-		//frame.setUndecorated(true);
-		
+		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 		frame.pack();
+
 		
 		canvas = new Canvas();
 		canvas.setPreferredSize(new Dimension(width, height));

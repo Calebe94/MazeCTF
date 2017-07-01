@@ -8,9 +8,10 @@ public class Tile {
 	//STATIC STUFF HERE
 	
 	public static Tile[] tiles = new Tile[256];
-	public static Tile grassTile = new GrassTile(0);
-	public static Tile dirtTile = new DirtTile(1);
-	public static Tile rockTile = new RockTile(2);
+	public static Tile marbleTile = new MarbleTile(0);
+	public static Tile floorTile = new FloorTile(1);
+	public static Tile graniteTile = new GraniteTile(2);
+	public static Tile trapTile = new Trap(3);
 	
 	//CLASS
 	

@@ -5,14 +5,14 @@ import java.util.ArrayList;
 import java.util.Comparator;
 
 import mazectf.Handler;
-import mazectf.entities.creatures.PlayerOne;
-import mazectf.entities.creatures.PlayerTwo;
+import mazectf.entities.creatures.PlayerBlue;
+import mazectf.entities.creatures.PlayerRed;
 
 public class EntityManager {
 	
 	private Handler handler;
-	private PlayerOne playerOne;
-	private PlayerTwo playerTwo;
+	private PlayerBlue playerBlue;
+	private PlayerRed playerRed;
 	private ArrayList<Entity> entities;
 	
 	private Comparator<Entity> renderSorter = new Comparator<Entity>(){
@@ -45,13 +45,13 @@ public class EntityManager {
 		}
 	}
 	
-	public void addPlayerOne(PlayerOne player){
-		this.playerOne = player;
+	public void addPlayerBlue(PlayerBlue player){
+		this.playerBlue = player;
 		this.entities.add(player);
 	}
 
-	public void addPlayerTwo(PlayerTwo player){
-		this.playerTwo = player;
+	public void addPlayerRed(PlayerRed player){
+		this.playerRed = player;
 		this.entities.add(player);
 	}
 	
@@ -69,20 +69,20 @@ public class EntityManager {
 		this.handler = handler;
 	}
 
-	public PlayerOne getPlayerOne() {
-		return playerOne;
+	public PlayerBlue getPlayerOne() {
+		return playerBlue;
 	}
 
-	public void setPlayerOne(PlayerOne playerOne) {
-		this.playerOne = playerOne;
+	public void setPlayerOne(PlayerBlue playerBlue) {
+		this.playerBlue = playerBlue;
 	}
 	
-	public PlayerTwo getPlayerTwo() {
-		return playerTwo;
+	public PlayerRed getPlayerTwo() {
+		return playerRed;
 	}
 
-	public void setPlayerTwo(PlayerTwo player) {
-		this.playerTwo = player;
+	public void setPlayerTwo(PlayerRed player) {
+		this.playerRed = player;
 	}
 	public ArrayList<Entity> getEntities() {
 		return entities;

@@ -8,20 +8,29 @@ public class Assets {
 	private static final int width = 63, height = 63;
 	private static final int charWidth = 44, charHeight = 52;
 	
-	public static BufferedImage dirt, grass, stone, tree, rock;
+	public static BufferedImage floor, granite, tree, marble;
+	public static BufferedImage IconRedFlag,IconBlueFlag;
 	public static BufferedImage[] player_down, player_up, player_left, player_right;
 	public static BufferedImage[] playerTwo_down, playerTwo_up, playerTwo_left,playerTwo_right;
 	public static BufferedImage[] zombie_down, zombie_up, zombie_left, zombie_right;
 	public static BufferedImage[] blueFlag;
 	public static BufferedImage[] redFlag; 
 	public static BufferedImage[] btn_start;
-
+	public static BufferedImage pause;
+	public static BufferedImage playerRed_Winner,playerBlue_Winner;
+	public static BufferedImage trap;
+	
 	public static void init(){
 		SpriteSheet sheet = new SpriteSheet(ImageLoader.loadImage("/textures/sheet.png"));
 		
-		//btn_start = new BufferedImage[2];
-		//btn_start[0] = sheet.crop(width * 6, height * 4, width * 2, height);
-		//btn_start[1] = sheet.crop(width * 6, height * 5, width * 2, height);
+		floor = ImageLoader.loadImage("/textures/floor.png");
+		
+		pause = ImageLoader.loadImage("/textures/pause.png");
+		
+		trap  = ImageLoader.loadImage("/textures/trap.png");
+		
+		playerRed_Winner = ImageLoader.loadImage("/textures/PlayerRedWins.png");
+		playerBlue_Winner= ImageLoader.loadImage("/textures/PlayerBlueWins.png");
 		
 		player_down = new BufferedImage[3];
 		player_up = new BufferedImage[3];
@@ -89,12 +98,8 @@ public class Assets {
 		redFlag[6] = sheet.crop(411, 83, 24, 49);
 		redFlag[7] = sheet.crop(436, 83, 24, 49);
 		
-		
-		dirt = sheet.crop(2*width, 0, width, height);
-		grass = sheet.crop(width, 0, width, height);
-		stone = sheet.crop((width * 4)+3, 0, 31, 31);
-		//tree = sheet.crop(0, 0, width, height * 2);
-		rock = sheet.crop(0, height * 2, width, height);
+		marble = sheet.crop(width, 0, width, height);
+		granite = sheet.crop((width * 4)+3, 0, 31, 31);
 	}
 	
 }
