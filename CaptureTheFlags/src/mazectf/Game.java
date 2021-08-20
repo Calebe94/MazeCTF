@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import mazectf.display.Display;
 import mazectf.gfx.Assets;
 import mazectf.input.Buttons;
-import mazectf.input.Gamepad;
-//import mazectf.gfx.GameCamera; //Camera
+//import mazectf.input.Gamepad;
+import mazectf.gfx.GameCamera; //Camera
 import mazectf.input.KeyManager;
 import mazectf.input.MouseManager;
 import mazectf.states.GameState;
@@ -37,9 +37,11 @@ public class Game implements Runnable {
 	//Input
 	private KeyManager keyManager;
 	private MouseManager mouseManager;
-	private Gamepad gamepad;
+	//private Gamepad gamepad;
 	private Buttons buttons;
-	
+
+	//Camera
+	private GameCamera gameCamera;
 	//Handler
 	private Handler handler;
 	private boolean pause=false;
@@ -50,7 +52,7 @@ public class Game implements Runnable {
 		this.title = title;
 		keyManager = new KeyManager();
 		mouseManager = new MouseManager();
-		gamepad = new Gamepad();
+		//gamepad = new Gamepad();
 		buttons = new Buttons();
 	}
 	
@@ -65,8 +67,8 @@ public class Game implements Runnable {
 		
 		handler = new Handler(this);
 
-		gamepad.start();
-		
+		//gamepad.start();
+		gameCamera = new GameCamera(handler, 0, 0);
 		gameState = new GameState(handler,new World(handler, "res/worlds/Maze1.txt"));
 		
 		menuState = new MenuState(handler);
@@ -76,10 +78,11 @@ public class Game implements Runnable {
 	}
 	
 	private void tick(){
-		this.buttons.checkAction(this.gamepad.getCommands());
+		//this.buttons.checkAction(this.gamepad.getCommands());
 		keyManager.tick();
 		
-		if((handler.getKeyManager().start==true) || (handler.getGamepadButtons().START==true)){
+		if((handler.getKeyManager().start==true)) { 
+				//|| (handler.getGamepadButtons().START==true)){
 			long startTimer = System.currentTimeMillis();
 			while((System.currentTimeMillis()-startTimer) <= (500)){}
 			pause=!pause;
@@ -151,15 +154,19 @@ public class Game implements Runnable {
 		stop();
 		
 	}
-	public Buttons getGamepadButtons(){
+	/*public Buttons getGamepadButtons(){
 		return this.buttons;
-	}
+	}*/
 	public KeyManager getKeyManager(){
 		return keyManager;
 	}
 	
 	public MouseManager getMouseManager(){
 		return mouseManager;
+	}
+
+	public GameCamera getGameCamera(){
+		return gameCamera;
 	}
 	
 	public int getWidth(){

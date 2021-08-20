@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import mazectf.input.Buttons;
 import mazectf.input.KeyManager;
 import mazectf.input.MouseManager;
+import mazectf.gfx.GameCamera;
 import mazectf.states.State;
 import mazectf.worlds.World;
 
@@ -65,10 +66,10 @@ public class Handler {
 	public void removeWorld(int index){
 		this.states.remove(index);
 	}
-	
+	/*
 	public Buttons getGamepadButtons(){
 		return this.game.getGamepadButtons();
-	}
+	}*/
 	
 	public KeyManager getKeyManager(){
 		return game.getKeyManager();
@@ -100,6 +101,10 @@ public class Handler {
 
 	public void setWorld(World world) {
 		this.world = world;
+	}
+	
+	public GameCamera getGameCamera(){
+		return game.getGameCamera();
 	}
 
 }

@@ -58,6 +58,7 @@ public class PlayerBlue extends Creature {
 	private void getInput(){
 		xMove = 0;
 		yMove = 0;
+		/*
 		if((handler.getGamepadButtons().A)){
 			if(handler.getGamepadButtons().UP    || (handler.getGamepadButtons().ANALOG_Y > 70 ))
 				yMove = -speed;
@@ -95,6 +96,7 @@ public class PlayerBlue extends Creature {
 				returnWithOponentFlag = true;
 			}
 		}
+		*/
 	}
 	
 	private boolean base(){
