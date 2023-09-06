@@ -4,7 +4,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class KeyManager implements KeyListener {
-	
+
 	private boolean[] keys;
 	public boolean up, down, left, right;
 	public boolean walk;
@@ -14,11 +14,11 @@ public class KeyManager implements KeyListener {
 	public boolean dropFlag;
 	public boolean dropFlag1;
 	public boolean start;
-	
+
 	public KeyManager(){
 		keys = new boolean[256];
 	}
-	
+
 	public void tick(){
 		up = keys[KeyEvent.VK_W];
 		down = keys[KeyEvent.VK_S];
@@ -35,8 +35,13 @@ public class KeyManager implements KeyListener {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		keys[e.getKeyCode()] = true;
-		System.out.println("Key Pressed"+e.getKeyCode());
+        try {
+            keys[e.getKeyCode()] = true;
+            System.out.println("Key Pressed: " + e.getKeyCode());
+        } catch (ArrayIndexOutOfBoundsException ex) {
+            // Handle the exception (e.g., log it or show an error message)
+            System.err.println("An error occurred while processing a key press event: " + ex.getMessage());
+        }
 	}
 
 	@Override
@@ -47,7 +52,7 @@ public class KeyManager implements KeyListener {
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-		
+
 	}
 
 }
